@@ -1,0 +1,79 @@
+<ng-container *ngIf="(loading$ | async) === false && (error$ | async) === null">
+    <div class="table-container">
+        <div class="header">Table data <span>{{ tableData.length || 0 }} items</span></div>
+        <app-pagination [data]="tableData || []"
+                        [currentPage]="selectedPage"
+                        (filteredDataItems)="filteredTableData = $event"
+                        (selectedPage)="selectedPage = $event">
+            <div class="table">
+                <table aria-describedby="table">
+                    <thead>
+                    <tr>
+                        <th class="checkbox">
+                            <mat-checkbox (change)="masterToggle()"
+                                          [checked]="isSelectedRowsLength && isAllSelected"
+                                          [indeterminate]="isSelectedRowsLength && isSomeRowsChecked">
+                            </mat-checkbox>
+                        </th>
+                        <th *ngFor="let item of displayedColumns">
+                            <div class="th-box">
+                                {{ translatedObjectsWithActions[item]?.title }}
+                                <ng-container *ngIf="translatedObjectsWithActions[item]?.infoTooltip">
+                                    <mat-icon class="icon">info</mat-icon>
+                                </ng-container>
+                                <ng-container *ngIf="translatedObjectsWithActions[item]?.sorting">
+                                    <mat-icon class="icon">arrow_downward</mat-icon>
+                                </ng-container>
+                            </div>
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let data of filteredTableData; index as i">
+                        <td class="checkbox">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                          (change)="selectRow(i);"
+                                          [checked]="isRowChecked(i)">
+                            </mat-checkbox>
+                        </td>
+                        <td>{{ data.policyID }}</td>
+                        <td>{{ data.statecode }}</td>
+                        <td>{{ data.county }}</td>
+                        <td>{{ data.eqSiteLimit }}</td>
+                        <td>{{ data.huSiteLimit }}</td>
+                        <td>{{ data.flSiteLimit }}</td>
+                        <td>{{ data.frSiteLimit }}</td>
+                        <td>{{ data.tiv2011 }}</td>
+                        <td>{{ data.tiv2012 }}</td>
+                        <td>{{ data.eqSiteDeductible }}</td>
+                        <td>{{ data.huSiteDeductible }}</td>
+                        <td>{{ data.flSiteDeductible }}</td>
+                        <td>{{ data.frSiteDeductible }}</td>
+                        <td>{{ data.pointLatitude }}</td>
+                        <td>{{ data.pointLongitude }}</td>
+                        <td>{{ data.line }}</td>
+                        <td>{{ data.construction }}</td>
+                        <td>{{ data.pointGranularity }}</td>
+                        <td>{{ data.merged }}</td>
+                        <td class="actions-column">
+                            <mat-icon class="icon">delete</mat-icon>
+                            <mat-icon class="icon">edit</mat-icon>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-pagination>
+    </div>
+</ng-container>
+
+<div class="spinner-container" *ngIf="(loading$ | async) === true">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="error-container" *ngIf="(error$ | async) as error">
+    {{ error }}
+</div>
+
+
+

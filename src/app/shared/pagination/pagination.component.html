@@ -1,0 +1,25 @@
+<ng-content></ng-content>
+<div class="pagination-container" *ngIf="pager.pages && pager.pages.length">
+    <div class="back-button" (click)="setPage(pager.currentPage === 1 ? pager.totalPages : pager.currentPage - 1)">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Previous</span>
+    </div>
+    <div class="desktop-content">
+        <div *ngFor="let page of pager.pages; first as first; last as last"
+             [class.selected]="pager.currentPage === page"
+        >
+            <span class="item" (click)="setPage(page)">{{ page }}</span>
+        </div>
+    </div>
+
+    <div class="mobile-content">
+        <div>
+            Page {{ pager.currentPage }} of {{ pager.totalPages }}
+        </div>
+    </div>
+
+    <div class="next-button" (click)="setPage(pager.currentPage === pager.totalPages ? 1 : pager.currentPage + 1)">
+        <span>Next</span>
+        <mat-icon>arrow_forward</mat-icon>
+    </div>
+</div>

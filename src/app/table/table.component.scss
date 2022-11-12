@@ -1,0 +1,81 @@
+.table-container {
+  max-width: 1024px;
+  margin: auto;
+
+  .header {
+    font-size: 18px;
+    padding: 0 20px;
+    margin: 34px 0 24px 0;
+
+    span {
+      font-size: 12px;
+      color: #6941C6;
+    }
+  }
+
+  .table {
+    overflow-x: auto;
+
+    table {
+      border-collapse: collapse;
+
+      th {
+        font-size: 12px;
+        color: #667085;
+        min-width: 140px;
+        height: 44px;
+        text-align: left;
+      }
+
+      td {
+        height: 72px;
+        font-size: 14px;
+      }
+
+      .th-box {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-left: 4px;
+        }
+      }
+
+      tbody {
+        tr:nth-child(odd) {
+          background-color: #EAECF0;
+        }
+
+        td.actions-column {
+          color: #667085;
+          .icon {
+            margin: 0 4px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .checkbox {
+        text-align: center;
+        min-width: 60px;
+      }
+    }
+  }
+}
+
+@mixin center-item() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.spinner-container {
+  @include center-item;
+}
+
+.error-container {
+  @include center-item;
+  color: red;
+}
